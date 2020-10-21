@@ -92,3 +92,48 @@ function bubbleSort(arr: any) {
 }
 
 console.log(bubbleSort([2,8,6,4]));
+/**
+ * 生成图片二维码：canvas
+ * poster:背景  qr： 要贴上的图 cb：callback
+ */
+function createImgWithQr (poster:string, qr:string, cb:Function) {
+  const ratio = 2
+  const width = 300 * ratio, height = 533 * ratio, qrSize = 104 * ratio, gap = 14 * ratio, padding = 10 * ratio // 375 667 130
+  let canvas: any = document.getElementById('canvas')
+  let ctx = canvas.getContext('2d')
+  canvas.width = width + padding
+  canvas.height = height + padding
+  ctx.fillStyle = '#fff'
+  ctx.fillRect(0,0, canvas.width, canvas.height)
+  let img = new Image()
+  img.src = poster
+  img.crossOrigin = 'anonymous'
+  try {
+      img.onload = () => {
+          ctx.drawImage(img, padding, padding, width - padding, height - padding)
+          function createUrl () {
+              let url = canvas.toDataURL('image/png')
+              cb && cb(url)
+          }
+          function createQr () {
+              let qrImg = new Image()
+              qrImg.src = qr
+              qrImg.crossOrigin = 'anonymous'
+              let dx = width - qrSize - gap
+              let dy = height - qrSize - gap
+              qrImg.onload = () => {
+                  ctx.drawImage(qrImg, dx, dy, qrSize, qrSize)
+                  createUrl()
+              }
+          }
+          if (qr) {
+              createQr ()
+          } else {
+              createUrl()
+          }
+      }
+  } catch (e) {
+      cb && cb(false)
+      console.log('----e----', e)
+  }
+}

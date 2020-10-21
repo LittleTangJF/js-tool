@@ -89,3 +89,50 @@ function bubbleSort(arr) {
     return arr;
 }
 console.log(bubbleSort([2, 8, 6, 4]));
+/**
+ * 生成图片二维码：canvas
+ * poster:背景  qr： 要贴上的图 cb：callback
+ */
+function createImgWithQr(poster, qr, cb) {
+    var ratio = 2;
+    var width = 300 * ratio, height = 533 * ratio, qrSize = 104 * ratio, gap = 14 * ratio, padding = 10 * ratio; // 375 667 130
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = width + padding;
+    canvas.height = height + padding;
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    var img = new Image();
+    img.src = poster;
+    img.crossOrigin = 'anonymous';
+    try {
+        img.onload = function () {
+            ctx.drawImage(img, padding, padding, width - padding, height - padding);
+            function createUrl() {
+                var url = canvas.toDataURL('image/png');
+                cb && cb(url);
+            }
+            function createQr() {
+                var qrImg = new Image();
+                qrImg.src = qr;
+                qrImg.crossOrigin = 'anonymous';
+                var dx = width - qrSize - gap;
+                var dy = height - qrSize - gap;
+                qrImg.onload = function () {
+                    ctx.drawImage(qrImg, dx, dy, qrSize, qrSize);
+                    createUrl();
+                };
+            }
+            if (qr) {
+                createQr();
+            }
+            else {
+                createUrl();
+            }
+        };
+    }
+    catch (e) {
+        cb && cb(false);
+        console.log('----e----', e);
+    }
+}
