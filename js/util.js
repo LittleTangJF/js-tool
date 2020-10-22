@@ -56,9 +56,9 @@ function setQueryUrl(obj) {
  */
 function getUrlPrmt(url) {
     url = url ? url : window.location.href;
-    var pa = url.substring(url.indexOf('?') + 1), arrS = pa.split('&'), rs = {};
+    var pa = url.substring(url.indexOf("?") + 1), arrS = pa.split("&"), rs = {};
     for (var i = 0, len = arrS.length; i < len; i++) {
-        var pos = arrS[i].indexOf('=');
+        var pos = arrS[i].indexOf("=");
         if (pos == -1) {
             continue; // 跳过此循环
         }
@@ -81,14 +81,14 @@ function bubbleSort(arr) {
     var len = arr.length;
     for (var i = 0; i < len; i++) {
         for (var j = 0; j < len - 1 - i; j++) {
-            if (arr[j] > arr[j + 1]) { //相邻元素两两对比
+            if (arr[j] > arr[j + 1]) {
+                //相邻元素两两对比
                 _a = [arr[j + 1], arr[j]], arr[j] = _a[0], arr[j + 1] = _a[1]; //元素交换
             }
         }
     }
     return arr;
 }
-console.log(bubbleSort([2, 8, 6, 4]));
 /**
  * 生成图片二维码：canvas
  * poster:背景  qr： 要贴上的图 cb：callback
@@ -96,26 +96,26 @@ console.log(bubbleSort([2, 8, 6, 4]));
 function createImgWithQr(poster, qr, cb) {
     var ratio = 2;
     var width = 300 * ratio, height = 533 * ratio, qrSize = 104 * ratio, gap = 14 * ratio, padding = 10 * ratio; // 375 667 130
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
     canvas.width = width + padding;
     canvas.height = height + padding;
-    ctx.fillStyle = '#fff';
+    ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     var img = new Image();
     img.src = poster;
-    img.crossOrigin = 'anonymous';
+    img.crossOrigin = "anonymous";
     try {
         img.onload = function () {
             ctx.drawImage(img, padding, padding, width - padding, height - padding);
             function createUrl() {
-                var url = canvas.toDataURL('image/png');
+                var url = canvas.toDataURL("image/png");
                 cb && cb(url);
             }
             function createQr() {
                 var qrImg = new Image();
                 qrImg.src = qr;
-                qrImg.crossOrigin = 'anonymous';
+                qrImg.crossOrigin = "anonymous";
                 var dx = width - qrSize - gap;
                 var dy = height - qrSize - gap;
                 qrImg.onload = function () {
@@ -133,6 +133,24 @@ function createImgWithQr(poster, qr, cb) {
     }
     catch (e) {
         cb && cb(false);
-        console.log('----e----', e);
+        console.log("----e----", e);
     }
+}
+/**
+ * 判断微信浏览器
+ * @returns {Boolean}
+ */
+function isWeiXin() {
+    var ua = window.navigator.userAgent.toLowerCase();
+    var match = ua.match(/MicroMessenger/i);
+    return match && match[0] === 'micromessenger';
+}
+console.log(isWeiXin());
+/**
+ * 取url的参数
+ */
+function getQuery(key) {
+    var params = new URLSearchParams(location.search);
+    // params.append(key, value)
+    params.get(key);
 }
