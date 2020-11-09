@@ -154,3 +154,31 @@ function getQuery(key) {
     // params.append(key, value)
     params.get(key);
 }
+/**
+ * 高阶函数compose
+ * 函数会被当成参数传入
+ */
+function compose(...funcs) {
+    // 没有传入函数运行直接返回参数
+    if (funcs.length === 0) {
+        return arg => arg
+    }
+    // 只传入一个函数，就返回其本身
+    if (funcs.length === 1) {
+        return funcs[0]
+    }
+    // 核心代码其实就是一句reduce, reduce特性就是按顺序执行，并且将结果传递给下一次执行, 这里多说一句, reduce顺序执行多个相依赖的promise也很好用
+    return funcs.reduce((a, b) => (...args) => a(b(...args)))
+}
+
+/**
+ * 实现Array.flat
+ * 扁平化数组
+ */
+let sum = 0;let arr1 = [[0, 1], [2, 3], [4, [5, 6, 7]]]
+const flattenArr = function (arr) {
+    return arr.reduce((acc, cur) => { sum++
+        return acc.concat(Array.isArray(cur) ? flattenArr(cur) : cur)
+    }, [])
+}
+console.log(flattenArr(arr1),sum)
