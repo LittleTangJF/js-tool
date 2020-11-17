@@ -182,3 +182,19 @@ const flattenArr = function (arr) {
     }, [])
 }
 console.log(flattenArr(arr1),sum)
+
+/**
+ * 判断视图出现在屏幕内
+ * ref: ref = React.createRef();
+ * node : const node = this.ref.current;
+ */
+checkVisible = (node) => {
+    if (node) {
+      const { top, bottom, left, right } = node.getBoundingClientRect();
+      return bottom > 0 
+        && top < window.innerHeight
+        && left < window.innerWidth
+        && right > 0;
+    }
+    return false;
+  }
