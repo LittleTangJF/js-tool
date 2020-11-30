@@ -198,3 +198,25 @@ checkVisible = (node) => {
     }
     return false;
   }
+/**
+ * 电话号码设置间隔
+ */
+filterPhone=(phone= '00000000000')=> {
+    let res = phone.replace(/^(.{3})(.*)(.{4})$/, '$1 $2 $3');
+    console.log(res); // 888 8888 8888
+    return res;
+}
+/**
+ * 解决图片翻转
+ * auto-orient： 0：保持原图方向，不进行自适应旋转。1：将图片进行自适应旋转。
+ * 阿里云的 ?x-oss-process=image/auto-orient,1
+ * 腾讯云的 ?imageMogr2/auto-orient
+ */
+const ossAutoOrientPath = (path) => {
+    if (path.toString().indexOf('?x-oss-process=image') < 0) {
+      path += '?x-oss-process=image/auto-orient,1'
+    } else if (path.toString().indexOf('/auto-orient,1') < 0) {
+      path += '/auto-orient,1'
+    }
+    return path
+  }
