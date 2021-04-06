@@ -1,3 +1,5 @@
+// todo 运行node js/明源云-面经.js
+
 // 第一题 this指向问题
 var User = {
     a: 1,
@@ -59,7 +61,7 @@ function changeQ () {
     return re+ '.' +arr[1]
 }
 console.log(changeQ(), '***********打印 changeQ() ***********');
-console.log('***********打印 第四题 ***********');
+console.log('***********打印 第五题 ***********');
 var arr4 = [
     {
         id: 1,
@@ -92,7 +94,6 @@ function getArrId (arr) {
             }
         })
     }
-<ZA>À</ZA>
     return arrssss
 }
 console.log(getArrId(arr4), '***********打印 getArrId() ***********');
