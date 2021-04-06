@@ -1,6 +1,6 @@
 // todo 运行node js/明源云-面经.js
 
-// 第一题 this指向问题
+// 第一题 this指向问题 运行User.getData()和 a1() 输出什么
 var User = {
     a: 1,
     getData: function() {
@@ -12,7 +12,7 @@ var a1 = User.getData // this指向window,没有a所以打印undefined
 console.log(a1(), '***********打印 a1 ***********');
 
 console.log('***********打印 第二题 ***********');
-// 深clone
+// 深clone 实现一个clone能复制js的基本几种类型
 
 function deepClone(obj) {
     // 不是对象返回
@@ -36,7 +36,8 @@ function deepClone(obj) {
     return deepC
 }
 console.log(deepClone({ a:1, arr: [2,3] }), '***********打印 deepClone() ***********');
-console.log( '***********打印 第三题 数组范围和***********');
+// 第三题  sumRange(1, 3) 输出数组第1到第3个范围内数据的和
+console.log( '***********打印 第三题   数组范围和***********');
 var nums = [0, 3, 4, 5, 8, -5, -6, 2, 9, 10]
 function sumRange(pre, final) {
     var sum = 0;
@@ -48,6 +49,7 @@ function sumRange(pre, final) {
     console.log(sum, '***********打印 sum ***********');
 }
 sumRange(3, 6)
+//第四题  10000000.01 =====> 10,000,000.01  千分位就加个,号
 console.log('***********打印 第四题 ***********');
 // 千分位 格式化问题
 var num = 10000000.01
@@ -61,6 +63,7 @@ function changeQ () {
     return re+ '.' +arr[1]
 }
 console.log(changeQ(), '***********打印 changeQ() ***********');
+//  第五题  把arr4格式的数组内所有的id取出来，====> [1, 2, 3, 4 ]
 console.log('***********打印 第五题 ***********');
 var arr4 = [
     {
