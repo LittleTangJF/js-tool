@@ -178,4 +178,90 @@ function LazyMan (name) {
     return new _LazyMan(name)
 }
 // console.log(, '***********打印  ***********');
-LazyMan('tjf').sleepFirst(3).eat('hahah')
+// LazyMan('tjf').eat('hahah').sleepFirst(3)
+
+// 第六题 第二种题解
+function _Lazy (name) {
+    // 保证this指向_Lazy的实例
+    if(!(this instanceof _Lazy)){
+        return new _Lazy(name)
+      }
+    this.name = name
+    const satName = (next)=>{
+        console.log(this.name, '***********打印 this.name ***********');
+        next()
+    }
+    this.task= [satName]
+    setTimeout(() => {
+       this.next() 
+    }, 0);
+}
+_Lazy.prototype.next = function (){
+    if(this.task.length<0)return
+   const tasks = this.task.shift()
+   tasks && tasks(this.next.bind(this))
+}
+_Lazy.prototype.eat = function (food){
+    this.task.push((next)=>{
+        console.log( `'***********打印 ${food} ***********'`);
+        next()
+    })
+    return this
+}
+_Lazy.prototype.sleep = function (time){
+    const st = (next)=>{
+        console.log( `'***********打印 等待${time}秒 ***********'`);
+        setTimeout(() => {
+            next()
+        }, time * 1000);
+    }
+    this.task.push(st)
+    return this
+ }
+//  _Lazy('888').sleep(2).eat('999')
+// console.log(new _Lazy('22'), ' ***********');
+// const aaa = []
+// aaa.push(2)
+// aaa.push(3)
+// const bb = aaa.shift()
+// console.log(aaa,bb, '***********打印 aaa ***********');
+
+// 实现一个new
+function newMethod (constructor, ...arg) {
+    // 1 新建空对象
+    var result = {}
+    // 2 把函数的原型挂载到对象的_proto_上
+    result.__proto__ = constructor.prototype
+    console.log(result, '***********打印 result ***********');
+    // 或者 var result= Object.create(constructor.prototype); 1和2合并
+    // 3 将空对象作为this的上下文
+    let res  = constructor.apply(result, arg)
+    console.log(res, '***********打印 res ***********');
+    // todo因为new关键字--返回对象 后内部属性是被对象的覆盖 https://blog.csdn.net/yzhean/article/details/109990987
+    // 如果函数没有返回对象就返回this
+    return Object.prototype.toString.call(res) ==='[object Object]'? res: result
+}
+const Fun = function(name) {
+    this.name = name;
+    return [1,3]
+  };
+  
+//   console.log(newMethod(Fun, '小明'));
+
+// 实现instanceof
+function instanceofs (left, right) {
+    // 1取右边的prototype
+    let r = right.prototype
+    while(true){
+        // 到底了
+        if(left === null){
+            return false
+        }
+        // 如果找到了就返回
+        if(left === r){
+            return true
+        }
+        // 循环赋值__proto__
+        left = left.__proto__
+    }
+}
