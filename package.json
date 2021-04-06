@@ -1,0 +1,22 @@
+{
+  "name": "js-tool",
+  "version": "1.0.0",
+  "description": "userfull javascript tool-function",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LittleTangJF/js-tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LittleTangJF/js-tool/issues"
+  },
+  "homepage": "https://github.com/LittleTangJF/js-tool#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
