@@ -100,3 +100,82 @@ function getArrId (arr) {
     return arrssss
 }
 console.log(getArrId(arr4), '***********打印 getArrId() ***********');
+// 第六题  
+/**
+ * LazyMan(‘tom’)
+输出:
+“this is tom”
+LazyMan(‘tom’).sleep(10).eat(‘apple’)
+输出:
+“this is tom”
+等待10秒…
+“eat apple”
+LazyMan(‘tom’).eat(‘apple’).eat(‘banana’)
+输出:
+“this is tom”
+“eat apple”
+“eat banana”
+LazyMan(‘tom’).eat(‘banana’).sleepFirst(5)
+输出:
+等待 5 秒…
+“this is tom”
+“eat banana”
+ */
+class _LazyMan {
+    constructor(name){
+        this.name = name
+        this.tasks = [this.sayName]
+        setTimeout(() => {  // 宏任务队列 ， 再所有的方法执行完后再执行
+            this.next()
+        }, 0);
+    }
+    next= ()=>{
+        let task = this.tasks.shift()
+        task && task()
+    }
+
+    // 任务队列 addTofinal 添加到数组最后一个 push
+    addTasks(task, addTofinal = true) {
+        if(addTofinal) {
+            this.tasks.push(task)
+        }else{
+            this.tasks.unshift(task)
+        }
+    }
+    // sayName 
+    sayName =() =>{
+        console.log(this.name, '***********打印 this.name ***********');
+        this.next()
+    }
+    // sleep
+    sleep = (time) =>{
+         this.addTasks(this.sleepTask(time))
+         return this
+    }
+    // sleepFirst
+    sleepFirst = (time) =>{
+         this.addTasks(this.sleepTask(time), false)
+         return this
+    }
+
+    // function sleepTask
+    sleepTask = (time) =>{
+        return ()=> {
+            console.log( `'***********打印 等待${time}秒 ***********'`);
+            setTimeout(() => {
+            this.next()
+        }, time * 1000);}
+    }
+    // eat
+    eat =(food)=>{
+        this.addTasks(()=>{
+            console.log( `'***********打印 ${food} ***********'`);
+        })
+        return this
+    }
+}
+function LazyMan (name) {
+    return new _LazyMan(name)
+}
+// console.log(, '***********打印  ***********');
+LazyMan('tjf').sleepFirst(3).eat('hahah')
