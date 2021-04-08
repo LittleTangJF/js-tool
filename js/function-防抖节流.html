@@ -1,7 +1,45 @@
-import { debounce } from 'lodash'
+<!DOCTYPE html>
+<html lang="en">
 
-//防抖 : 防止抖动
-function mydebounce(fn, wait = 500) {
-    let timeout = null
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 
-}
+
+<body>
+    <button id="aa">go</button>
+    <script>
+        // 防抖
+        function myDebounce(fn, delay) {
+            let time = null
+            return function () {
+                clearTimeout(time)
+                time = setTimeout(() => {
+                    fn.apply(this, arguments)
+                }, delay)
+            }
+        }
+        // 节流
+        function myThrottle(fn, delay) {
+            var curr = Date.now()
+            return function () {
+                var curr1 = Date.now()
+                if (curr1 - curr >= delay) {
+                    fn.apply(this, arguments)
+                    curr = Date.now()
+                }
+            }
+        }
+        function test() {
+            console.log('***********打印 test ***********');
+        }
+        document.getElementById('aa').onclick = this.myThrottle(test, 2000)
+        // document.getElementById('aa').onclick = this.myDebounce(test, 2000)
+            // window.addEventListener('mousemove', myDebounce(test, 300))
+    </script>
+</body>
+
+</html>

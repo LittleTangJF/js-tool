@@ -145,7 +145,7 @@ function isWeiXin() {
     var match = ua.match(/MicroMessenger/i);
     return match && match[0] === 'micromessenger';
 }
-console.log(isWeiXin());
+// console.log(isWeiXin());
 /**
  * 取url的参数
  */
@@ -161,7 +161,7 @@ function getQuery(key) {
 function compose(...funcs) {
     // 没有传入函数运行直接返回参数
     if (funcs.length === 0) {
-        return arg => arg
+        return funcs => funcs
     }
     // 只传入一个函数，就返回其本身
     if (funcs.length === 1) {
@@ -170,7 +170,18 @@ function compose(...funcs) {
     // 核心代码其实就是一句reduce, reduce特性就是按顺序执行，并且将结果传递给下一次执行, 这里多说一句, reduce顺序执行多个相依赖的promise也很好用
     return funcs.reduce((a, b) => (...args) => a(b(...args)))
 }
-
+function compose1 (...func){
+    return function(arg1){
+        return func.reduce((pre, cur)=> cur(pre), arg1)
+    }
+}
+const nub=()=>{
+    return 1
+}
+const add =(n)=>{
+    return 's'+n
+}
+console.log(compose(nub,add)(2), '***********打印  ***********');
 /**
  * 实现Array.flat
  * 扁平化数组
@@ -181,14 +192,14 @@ const flattenArr = function (arr) {
         return acc.concat(Array.isArray(cur) ? flattenArr(cur) : cur)
     }, [])
 }
-console.log(flattenArr(arr1),sum)
+// console.log(flattenArr(arr1),sum)
 
 /**
  * 判断视图出现在屏幕内
  * ref: ref = React.createRef();
  * node : const node = this.ref.current;
  */
-checkVisible = (node) => {
+const checkVisible = (node) => {
     if (node) {
       const { top, bottom, left, right } = node.getBoundingClientRect();
       return bottom > 0 
@@ -201,7 +212,7 @@ checkVisible = (node) => {
 /**
  * 电话号码设置间隔
  */
-filterPhone=(phone= '00000000000')=> {
+const filterPhone=(phone= '00000000000')=> {
     let res = phone.replace(/^(.{3})(.*)(.{4})$/, '$1 $2 $3');
     console.log(res); // 888 8888 8888
     return res;
