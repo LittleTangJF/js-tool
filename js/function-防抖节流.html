@@ -12,7 +12,8 @@
 <body>
     <button id="aa">go</button>
     <script>
-        // 防抖
+        // function fuc()
+        // 防抖 在第一次触发事件时，不立即执行函数，而是给出一个期限值比如200ms, 如果一直点就不执行了
         function myDebounce(fn, delay) {
             let time = null
             return function () {
@@ -22,22 +23,29 @@
                 }, delay)
             }
         }
-        // 节流
+        // 节流 为了能一直点的时候可以执行，函数执行一次之后，该函数在指定的时间期限内不再工作，直至过了这段时间才‘重新生效’
         function myThrottle(fn, delay) {
-            var curr = Date.now()
+            var last = 0
             return function () {
+                // console.log(this, '***********打印 this ***********');
                 var curr1 = Date.now()
-                if (curr1 - curr >= delay) {
-                    fn.apply(this, arguments)
-                    curr = Date.now()
+                if (curr1 - last >= delay) {
+                    console.log(this, '***********打印 this ***********');
+                    last = curr1
+                    fn()
+                    // fn.apply(this, arguments)
                 }
             }
         }
-        function test() {
-            console.log('***********打印 test ***********');
+        function test(n = 111) {
+            console.log(n, '***********打印 test ***********');
         }
-        document.getElementById('aa').onclick = this.myThrottle(test, 2000)
-        // document.getElementById('aa').onclick = this.myDebounce(test, 2000)
+        // document.getElementById('aa').onclick = this.myThrottle(test, 2000)
+        document.getElementById('aa').onclick = this.myDebounce(test, 2000)
+        vud的deboncefun(){
+            this.message = 'ysm'
+
+        }
             // window.addEventListener('mousemove', myDebounce(test, 300))
     </script>
 </body>

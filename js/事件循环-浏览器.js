@@ -1,6 +1,6 @@
 async function async1(){
     console.log('async1 start')
-    await async2()
+    await async2() //
     console.log('async1 end')
   }
 async function async2(){
@@ -9,12 +9,12 @@ async function async2(){
 console.log('script start')
 setTimeout(function(){
     console.log('setTimeout0') 
-},0)  
+},3)  
 setTimeout(function(){
     console.log('setTimeout3') 
-},3)  
-setImmediate(() => console.log('setImmediate'));
-process.nextTick(() => console.log('nextTick'));
+},0)  
+setImmediate(() => console.log('setImmediate'));// node
+process.nextTick(() => console.log('nextTick'));// node
 async1();
 new Promise(function(resolve){
     console.log('promise1')
