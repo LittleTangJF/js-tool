@@ -44,12 +44,11 @@ console.log(deepClone({ a:1, arr: [2,3] }), '***********打印 deepClone() *****
 console.log( '***********打印 第三题   数组范围和***********');
 var nums = [0, 3, 4, 5, 8, -5, -6, 2, 9, 10]
 function sumRange(pre, final) {
-    var sum = 0;
     let arr = nums.slice(pre, final +1)
     console.log(arr, '***********打印 arr ***********');
-    arr.map(d =>{
-        sum+=d
-    })
+    let sum = arr.reduce((pre, cur)=> {
+        return pre += cur
+    }, 0)
     console.log(sum, '***********打印 sum ***********');
 }
 sumRange(3, 6)

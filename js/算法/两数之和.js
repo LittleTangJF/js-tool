@@ -4,7 +4,7 @@
  示例:
  给定 nums = [2, 7, 11, 15], target = 9
  因为 nums[0] + nums[1] = 2 + 7 = 9
- 所以返回 [0, 1]
+ 所以返回 [2, 7]
  */
 
 var num = [1, 3, 3, 4, 5, 6, 8, 0]
@@ -16,13 +16,13 @@ function twoSum(target){
         let b = target - a
         // 如果差值有在obj里面，就返回
         if(obj[a] !== undefined){
-            arr.push([obj[a], i]) 
+            arr.push([obj[a], num[i]]) 
         }else{
             // 把差值的下标存起来
-            obj[b] = i
+            obj[b] = num[i]
         }
 
-    }
-    return arr
+    }   
+    return   arr  
 }
 console.log(twoSum(4), '***********打印  ***********');
