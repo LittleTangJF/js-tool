@@ -1,3 +1,25 @@
+function Parent (name) {
+    this.name = 'bbb'
+}
+
+function Child () {
+
+}
+// todo 默认方式
+Child.prototype = new Parent()
+
+// 借用构造函数
+function Child1 () {
+    Parent.call(this)
+}
+// 组合 借用和设置原型
+// todo 用object.create
+var child = Object.create(Parent, {
+    name: { value: "Benjamin"},
+    url : { value: "http://www.zuojj.com"}
+});
+
+
 // todo es class extends方法
 https://zhuanlan.zhihu.com/p/142027824
 /**
@@ -5,14 +27,9 @@ https://zhuanlan.zhihu.com/p/142027824
  * 通过修改子类的原型 到父类的实例上
  *
  */
-function Parent (name) {
-    this.name = 'bbb'
-}
+
 Parent.prototype.getName = function() {
     return this.name
-}
-function Child () {
-
 }
 Child.prototype = new Parent()
 
@@ -27,10 +44,6 @@ Child.prototype = new Parent()
 function Parent1 (name) {
     this.name = 'bbb'
 }
-function Child1 () {
-    Parent1.call(this)
-}
-
 var child = new Child1()
 // console.log(child.name, '***********打印  ***********');
 /**

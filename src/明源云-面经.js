@@ -12,34 +12,6 @@ var a1 = User.getData // this指向window,没有a所以打印undefined
 console.log(a1(), '***********打印 a1 ***********');
 
 console.log('***********打印 第二题 ***********');
-// 深clone 实现一个clone能复制js的基本几种类型
-/**
- * 
- * @param {浅拷贝}：第一层是基本数据类型则新、原对象不会影响，如果是复杂数据类型时则指向同一块地址
- * @returns 
- */
-function deepClone(obj) {
-    // 不是对象返回
-    if(typeof obj !== 'object' && !obj){
-        return obj
-    } 
-    var deepC = Array.isArray(obj) ? [] : {}
-    // 非空判断
-    if(obj&& typeof obj === 'object'){
-        for( key in obj) {
-            if(obj.hasOwnProperty(key)){
-                // 如果还内嵌对象
-                if(obj[key] && typeof obj[key] === 'object'){
-                    deepC[key] = deepClone(obj[key])
-                }else{
-                    deepC[key] = obj[key]
-                }
-            }
-        }
-    }
-    return deepC
-}
-console.log(deepClone({ a:1, arr: [2,3] }), '***********打印 deepClone() ***********');
 // 第三题  sumRange(1, 3) 输出数组第1到第3个范围内数据的和
 console.log( '***********打印 第三题   数组范围和***********');
 var nums = [0, 3, 4, 5, 8, -5, -6, 2, 9, 10]

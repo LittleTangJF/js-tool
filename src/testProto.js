@@ -38,13 +38,17 @@ var squeak = num => {
 
 // 下面输出结果是什么？如何让他每1s中输出一个？不能改动squeak函数
 function count(){
-    for (let i=0; i<3; i++) {
-        (function () {
-          setTimeout(() => squeak(i+1), 1000*i)
-        })()
-      }
+    for (let i = 0; i < 3; i++) {
+        //闭包， 保持i值的正确性
+        setTimeout( ()=> {
+            // return function () {
+                //分批渲染
+                squeak( i );
+            // }
+        }, 1000*i);
+    }
   }
-// count()
+count()
 
 // 第四题  反转字符串
 var name = "My city is WH";
@@ -60,7 +64,7 @@ for(var i = nameArr.length-1; i>=0; i--){
 }
 // var resultStr = name.split('').reverse().join(''); 
 // console.log(result.join(''), '***********打印 result ***********');
-console.log(resultStr, '***********打印 result ***********');
+// console.log(resultStr, '***********打印 result ***********');
 //  第五题 实现一个Observer观察者，并写出on、emit、off方法。
 
 class EventEmitter {
@@ -105,18 +109,18 @@ class EventEmitter {
 }
  
 //测试
-function fn(val){
-    console.log("Tom" + val);
-}
-function fn1(val){
-    console.log("Mary" + val);
-}
-function fn2(val){
-    console.log("Jack" + val);
-}
-var emitter = new EventEmitter();
-emitter.on("change",fn);
-emitter.on("change",fn1);
-emitter.on("change",fn2);
-emitter.off("change",fn);
-emitter.emit("change",123);
+// function fn(val){
+//     console.log("Tom" + val);
+// }
+// function fn1(val){
+//     console.log("Mary" + val);
+// }
+// function fn2(val){
+//     console.log("Jack" + val);
+// }
+// var emitter = new EventEmitter();
+// emitter.on("change",fn);
+// emitter.on("change",fn1);
+// emitter.on("change",fn2);
+// emitter.off("change",fn);
+// emitter.emit("change",123);
