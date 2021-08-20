@@ -150,4 +150,6 @@ function resolvePromise (x, promise2, resolve, reject){
 }
 
 
-module.exports = Promise
+module.exports = Promise=>{
+    
+}

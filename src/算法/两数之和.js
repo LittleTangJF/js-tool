@@ -8,21 +8,21 @@
  */
 
 var num = [1, 3, 3, 4, 5, 6, 8, 0]
-function twoSum(target){
+function twoSum(target) {
     var arr = [];
     var obj = {};
-    for(let i = 0 ; i<=num.length;i++){
+    for (let i = 0; i <= num.length; i++) {
         let a = num[i]
         let b = target - a
         // 如果差值有在obj里面，就返回
-        if(obj[a] !== undefined){
-            arr.push([obj[a], num[i]]) 
-        }else{
+        if (obj[a] !== undefined) {
+            return [obj[a], num[i]]
+        } else {
             // 把差值的下标存起来
             obj[b] = num[i]
         }
 
-    }   
-    return   arr  
+    }
+    return arr
 }
 console.log(twoSum(4), '***********打印  ***********');

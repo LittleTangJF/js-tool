@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单个堆叠上下本</title>
+    <style>
+        /* 第1个级别   背景跟边框 */
+        html {
+            /* 本身html也会创建堆叠上下文 */
+            background: lightblue;
+        }
+
+        /* 第6个级别  就是z-index 为默认值 auto 或者为0  
+            很显然 这个效果是在最前面的 
+        */
+        .container {
+            background: #008c8c;
+            width: 200px;
+            height: 200px;
+            position: relative;
+            z-index: auto;
+            /* 创建堆叠上下文 */
+            /* z-index: -1; */
+            /* 要是这个z-index是auto的话,这个div就不会创建堆叠上下文 */
+            margin: 50px;
+        }
+
+        /* 第2个级别  就是z-index为负数 */
+        .item {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: relative;
+            z-index: -1;
+            /* z-index: 设置的值为多少,都是无法在父元素的下面 */
+            float: left;
+            left: 30px;
+            top: 30px;
+        }
+
+        /* 第3个级别   常规流非定位块盒 */
+        .nomal {
+            /* 通过浏览器F12去修改margin-top值 动态修改,可以看到效果*/
+            width: 200px;
+            height: 200px;
+            background: chocolate;
+            margin-top: -200px;
+        }
+
+        /* 第4个级别   非定位浮动盒子 */
+        .float {
+            width: 200px;
+            height: 300px;
+            background: brown;
+            margin-top: -390px;
+            /* 这个效果最佳 */
+            float: left;
+            margin-left: 40px;
+        }
+
+        /* 第5个级别   常规流非定位行盒 */
+        /* 需要注意的就是我们可以看到这个 级别四已经 */
+        span {
+            background: lightyellow;
+
+        }
+
+        /* 第7个级别   很显然  把堆叠级别z-index设置为正值的堆叠上下文, 显然出现在最上面
+        
+            前提条件就是这个  这个元素会形成堆叠上下文, 不然你去设置堆叠上下文是没有效果的
+        */
+    </style>
+</head>
+
+<body>
+
+    <!-- 第三个 + 第五个级别-->
+    <!--因为p元素是常规流非定位块盒 第三个级别  然后 
+    这些文字其实是写在span里面的  也是就 常规流非定位行盒
+    最后效果也就是很明显,为什么 级别四的背景覆盖了级别三<p>元素的背景
+    但是没有覆盖这个 文字的颜色 就是因为文字隐式默认装在<span>里面  (匿名行盒)
+    
+    以上的解释也就是很清楚解释网页呈现的效果了
+    -->
+    <p style="background: lightyellow;">
+        Lorem ipsum dolor sit amet consectetur, adipisic
+    </p>
+    <!-- 第五个级别 -->
+    <span style="background: lightyellow;">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus, illo?
+    </span>
+    <div class="container">
+        <div class="item">
+            hhh
+        </div>
+    </div>
+
+    <div class="nomal">
+        <!-- 常规流盒子非定位 -->
+    </div>
+
+    <div class="float">
+        <!-- 非定位浮动盒 -->
+    </div>
+</body>
+
+</html>

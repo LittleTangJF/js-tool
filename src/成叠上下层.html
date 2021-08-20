@@ -1,0 +1,144 @@
+<!-- /**
+    层叠上下文：HTML中一个三维的概念
+    产生：
+    1. html元素(根元素) 第一层
+    2. 设置了z-index数值的定位元素(非auto)
+    3. 一定是定位元素，也就是需要你去设置这个position属性
+    4. 当然你也可以去mdn官方文档查看 层叠上下本 哪些元素可以去创建上下本css3新元素
+    规则：从后到前
+    1、设置了border/background
+    2、设置了z-index为负值
+    3、常规的块级元素（非定位
+    4、设置了浮动元素
+    5、常规的行级元素（非定位
+    6、设置了z-index：auto的定位元素
+    7、设置了z-index：正整数的定位元素
+*/ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* 例子1：父元素div都没有设置z-index，所以不会产生层叠上下文，
+    所以.a、.b、.c都处于由<html></html>标签产生的“根层叠上下文”中，属于同一个层叠上下文，此时谁的z-index值大，谁在上面
+     */
+    div {
+        position: relative;
+        width: 100px;
+        height: 100px;
+    }
+
+    p {
+        position: absolute;
+        font-size: 20px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .a {
+        background-color: blue;
+        z-index: 1;
+    }
+
+    .b {
+        background-color: green;
+        z-index: 2;
+        top: 20px;
+        left: 20px;
+    }
+
+    .c {
+        background-color: red;
+        z-index: 3;
+        top: -20px;
+        left: 40px;
+    }
+
+    /* 例子2 虽然p.c元素的z-index值为9999，远大于p.a和p.b的z-index值，
+    但是由于p.a、p.b的父元素div.box1产生的层叠上下文的z-index的值为2，p.c的父元素div.box2所产生的层叠上下文的z-index值为1，
+    所以p.c永远在p.a和p.b下面。
+
+*/
+    .box1 {
+        z-index: 2;
+    }
+
+    .box2 {
+        z-index: 1;
+    }
+
+    .d {
+        background-color: blue;
+        z-index: 100;
+    }
+
+    .e {
+        background-color: green;
+        top: 20px;
+        left: 20px;
+        z-index: 200;
+    }
+
+    .f {
+        background-color: red;
+        top: -20px;
+        left: 40px;
+        z-index: 9999;
+    }
+
+    .g1 {
+        background-color: rgb(179, 155, 155);
+        position: relative;
+        left: 0;
+    }
+
+    .g2 {
+        background-color: rgb(44, 36, 36);
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+
+    .g3 {
+        background-color: rgb(83, 18, 18);
+        position: fixed;
+        left: 30px;
+        top: 400px;
+    }
+</style>
+
+<body>
+    <!-- 结论
+        1、比较的两个元素是否处于同一个层叠上下文中--如果是，谁的层叠等级大，谁在上面
+        2、当两个元素层叠等级相同、层叠顺序相同时，在DOM结构中后面的元素层叠等级在前面元素之上
+    -->
+    <div>
+        <p class="a">a</p>
+        <p class="b">b</p>
+    </div>
+
+    <div>
+        <p class="c">c</p>
+    </div>
+    <div class="box1">
+        <p class="d">d</p>
+        <p class="e">e</p>
+    </div>
+
+    <div class="box2">
+        <p class="f">f</p>
+    </div>
+    <div>
+        <p class="g1">g1</p>
+        <p class="g2">g2</p>
+        <p class="g3">g3</p>
+    </div>
+</body>
+
+</html>
