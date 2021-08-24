@@ -48,6 +48,7 @@
 
 console.log('*********************打印');
 console.log('**************aa*******打印');
+console.log('**************cc*******打印');
 // function removeRepeat(str) {
 //     let arr = str.split('')
 //     let newArr = Array.from(new Set(arr))
