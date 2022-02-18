@@ -56,7 +56,7 @@
 //   })
 
 // console.log('script end')
-console.log( '***********打印 腾讯面试题***********');
+console.log('***********打印 腾讯面试题***********');
 // const promise1 = new Promise((resolve, reject)=>{
 //   console.log(1, '***********打印 1 ***********');
 //   resolve(1)
@@ -83,22 +83,53 @@ console.log( '***********打印 腾讯面试题***********');
 // }, 0);
 // console.log('***********打印 hahah ***********');
 
-const p = function (){
-  return new Promise((resolve, reject) => {
-      const p1 = new Promise((resolve, reject) => {
-          setTimeout(()=>{
-            resolve(4)
-          })
-      })
-      p1.then(res=>{
-        console.log(res, '***********打印 res ***********');
-      })
-      console.log(2, '***********打印 2 ***********');
-      resolve(3)
-  })
+// const p = function (){
+//   return new Promise((resolve, reject) => {
+//       const p1 = new Promise((resolve, reject) => {
+//           setTimeout(()=>{
+//             resolve(4)
+//           })
+//       })
+//       p1.then(res=>{
+//         console.log(res, '***********打印 res ***********');
+//       })
+//       console.log(2, '***********打印 2 ***********');
+//       resolve(3)
+//   })
+// }
+
+// p().then(res=>{
+//   console.log(res, '***********打印 res ***********');
+// })
+// console.log(1, '***********打印 1 ***********');
+async function f1() {
+  console.log('1');
+  await f2();
+  console.log('2');
 }
 
-p().then(res=>{
-  console.log(res, '***********打印 res ***********');
-})
-console.log(1, '***********打印 1 ***********');
+async function f2() {
+  console.log('3');
+}
+
+setTimeout(function () {
+  console.log(0);
+}, 0);
+
+f1();
+
+Promise.resolve().then(function () {
+  console.log(4);
+  return Promise.resolve().then(function () {
+    console.log(5);
+  });
+});
+
+new Promise(function (resolve) {
+  console.log(6);
+  resolve();
+}).then(function () {
+  console.log(7);
+});
+
+console.log(8);
