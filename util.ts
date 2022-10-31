@@ -12,6 +12,7 @@ function formatParams(params: any): object {
     ) {
       // 当空数组
       delete params[key];
+      // 测试
     } else if (!value) {
       // 当空 ‘’
       delete params[key];
