@@ -14,7 +14,7 @@ function formatParams(params: any): object {
       delete params[key];
       // 测试
     } else if (!value) {
-      // 当空 
+      // 
       delete params[key];
     }
   }
